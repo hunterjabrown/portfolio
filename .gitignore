@@ -1,0 +1,13 @@
+# Secrets & local config
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# OS / editor
+.DS_Store
+Thumbs.db
+
+# Private / not for public repos (keep locally; not committed)
+Resume.pdf
