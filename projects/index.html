@@ -114,6 +114,32 @@
       margin-bottom: 1.35em;
     }
 
+    .type-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.05em;
+      margin-left: 3px;
+      vertical-align: -0.12em;
+      background: #c87030;
+      animation: cursor-blink 1.05s step-end infinite;
+    }
+
+    @keyframes cursor-blink {
+      0%, 49% {
+        opacity: 1;
+      }
+      50%, 100% {
+        opacity: 0;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .type-cursor {
+        animation: none;
+        opacity: 0.85;
+      }
+    }
+
     /* Chess */
     .chess-section {
       margin-top: 1.5em;
@@ -258,7 +284,7 @@
       <p><span class="name">YN Capital</span> — student-led angel syndicate for AI startups; co-built the site, CRM, and investor flow. <a href="https://yncapital.co" target="_blank" rel="noopener noreferrer" class="site">[ yncapital.co ]</a></p>
     </div>
     <div class="project-block">
-      <p>currently building a tool that allows you to build anything you have imagined... more to come soon.</p>
+      <p>currently building a tool that allows you to build anything you have imagined... more to come soon.<span class="type-cursor" aria-hidden="true"></span></p>
     </div>
 
     <!-- Chess -->
@@ -275,7 +301,9 @@
     </div>
   </div>
 
+  <script src="/js/typewriter.js"></script>
   <script>
+    function initPortfolioChess() {
     const UNICODE = {
       wK:'♔', wQ:'♕', wR:'♖', wB:'♗', wN:'♘', wP:'♙',
       bK:'♚', bQ:'♛', bR:'♜', bB:'♝', bN:'♞', bP:'♟'
@@ -456,6 +484,57 @@
     });
 
     newGame();
+    }
+  </script>
+  <script>
+    (function () {
+      /* v2 key: older hb_tw_projects could block animation if set from a broken load */
+      var KEY = 'hb_tw_proj_v2';
+      var root = document.querySelector('.content');
+      var backup = root.innerHTML;
+      function markDone() {
+        try {
+          sessionStorage.setItem(KEY, '1');
+        } catch (e) {}
+      }
+      function skipTyping() {
+        try {
+          if (sessionStorage.getItem(KEY)) return true;
+          if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            try {
+              sessionStorage.setItem(KEY, '1');
+            } catch (e2) {}
+            return true;
+          }
+        } catch (e) {
+          return true;
+        }
+        return false;
+      }
+      if (skipTyping()) {
+        initPortfolioChess();
+        return;
+      }
+      if (typeof runProjectsTypewriter !== 'function') {
+        initPortfolioChess();
+        return;
+      }
+      try {
+        root.innerHTML = '';
+        runProjectsTypewriter(root)
+          .then(function () {
+            markDone();
+            initPortfolioChess();
+          })
+          .catch(function () {
+            root.innerHTML = backup;
+            initPortfolioChess();
+          });
+      } catch (e) {
+        root.innerHTML = backup;
+        initPortfolioChess();
+      }
+    })();
   </script>
 </body>
 </html>

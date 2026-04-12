@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Portfolio: static server (port 3000)",
+      "type": "python",
+      "request": "launch",
+      "module": "http.server",
+      "args": ["3000", "--bind", "127.0.0.1"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ]
+}

@@ -98,5 +98,49 @@
       <a href="/resume">[ resume ]</a>
     </nav>
   </div>
+  <!-- Relative path so local file:// and any subfolder server resolve; /js/... breaks on file:// -->
+  <script src="/js/typewriter.js"></script>
+  <script>
+    (function () {
+      var KEY = 'hb_tw_home';
+      var root = document.querySelector('.content');
+      var backup = root.innerHTML;
+      function markDone() {
+        try {
+          sessionStorage.setItem(KEY, '1');
+        } catch (e) {}
+      }
+      function skipTyping() {
+        try {
+          if (sessionStorage.getItem(KEY)) return true;
+          if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            try {
+              sessionStorage.setItem(KEY, '1');
+            } catch (e2) {}
+            return true;
+          }
+        } catch (e) {
+          return true;
+        }
+        return false;
+      }
+      if (skipTyping()) {
+        return;
+      }
+      if (typeof runHomeTypewriter !== 'function') {
+        return;
+      }
+      try {
+        root.innerHTML = '';
+        runHomeTypewriter(root)
+          .then(markDone)
+          .catch(function () {
+            root.innerHTML = backup;
+          });
+      } catch (e) {
+        root.innerHTML = backup;
+      }
+    })();
+  </script>
 </body>
 </html>
