@@ -141,14 +141,34 @@
     block2.appendChild(bp);
     root.appendChild(block2);
 
-    await typeTextNode(
-      bp,
-      'currently building a tool that allows you to build anything you have imagined... more to come soon.'
+    var duName = document.createElement('span');
+    duName.className = 'name';
+    bp.appendChild(duName);
+    await typeTextNode(duName, 'DrawnUp');
+    var duMid = document.createTextNode('');
+    bp.appendChild(duMid);
+    await appendDataTyping(
+      duMid,
+      ' — turns anything you imagine into a buildable plan; now scaling and marketing it. '
     );
+    var duA = document.createElement('a');
+    duA.href = 'https://drawnup.io';
+    duA.target = '_blank';
+    duA.rel = 'noopener noreferrer';
+    duA.className = 'site';
+    bp.appendChild(duA);
+    await typeTextNode(duA, '[ drawnup.io ]');
+
+    var block3 = document.createElement('div');
+    block3.className = 'project-block';
+    var bp3 = document.createElement('p');
+    block3.appendChild(bp3);
+    root.appendChild(block3);
+    await typeTextNode(bp3, 'more to come soon.');
     var cursor = document.createElement('span');
     cursor.className = 'type-cursor';
     cursor.setAttribute('aria-hidden', 'true');
-    bp.appendChild(cursor);
+    bp3.appendChild(cursor);
 
     var chessSec = document.createElement('div');
     chessSec.className = 'chess-section';
