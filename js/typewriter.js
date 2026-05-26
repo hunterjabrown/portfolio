@@ -102,13 +102,27 @@
     labelP.className = 'projects-label';
     header.appendChild(labelP);
 
+    var navWrap = document.createElement('nav');
+    navWrap.className = 'projects-nav';
+
+    var githubA = document.createElement('a');
+    githubA.href = 'https://github.com/hunterjabrown';
+    githubA.target = '_blank';
+    githubA.rel = 'noopener noreferrer';
+    githubA.className = 'home-link';
+    navWrap.appendChild(githubA);
+
     var homeA = document.createElement('a');
     homeA.href = '/';
     homeA.className = 'home-link';
-    header.appendChild(homeA);
+    navWrap.appendChild(homeA);
+
+    header.appendChild(navWrap);
     root.appendChild(header);
 
     await typeTextNode(labelP, 'projects');
+    await typeTextNode(githubA, '[ github ]');
+    await sleep(50);
     await typeTextNode(homeA, '[ home ]');
 
     var block1 = document.createElement('div');
